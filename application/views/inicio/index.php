@@ -1,6 +1,8 @@
 <div class="container">
   <div class="row">
   <div class="col-lg-12">
+    <?php $rows = count($paquetes); ?>
+    <?php if ($rows > 0): ?>
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -31,7 +33,8 @@
             <?php endif; ?>
               <img height="400" width="700" alt="<?php echo $fila->nombre_paquete ?> slide" src="<?php echo base_url();?>img/caratulas/<?php echo $fila->caratula_imagen ?>" class="img-responsive">
               <div class="carousel-caption">
-                <?php echo $fila->nombre_paquete ?>
+                <h1 style="color: yellow;"><?php echo $fila->nombre_paquete ?></h1>
+                <p><?php echo anchor('paquete/informacion/'.$fila->id,'Información',array('class'=>'btn btn-info')) ?></p>
               </div>
           </div>
           <?php
@@ -52,6 +55,12 @@
       </a>
     </div>
   </div>
+  <?php else: ?>
+    <div class="jumbotron">
+      <h1>Hola, viajero!</h1>
+      <p>Por el momento no tenemos ningun viaje que ofrecerte.</p>
+    </div>
+  <?php endif; ?>
 </div>
 <!-- START THE FEATURETTES -->
 
@@ -62,9 +71,14 @@
             <div class="col-md-7">
               <h2 class="featurette-heading"><?php echo $p->nombre_paquete; ?> <span class="text-muted"><?php echo $p->precio.' '.$p->denominacion ?></span></h2>
               <p class="lead"><?php echo $p->especificaciones; ?></p>
+                <p><?php echo anchor('paquete/informacion/'.$p->id,'Información',array('class'=>'btn btn-info btn-xs')) ?></p>
             </div>
             <div class="col-md-5">
-              <img class="featurette-image img-responsive center-block" height="500" width="500" data-src="holder.js/500x500/auto" src="<?php echo base_url();?>img/caratulas/<?php echo $p->caratula_imagen; ?>" alt="Generic placeholder image">
+              <a href="<?php echo 'paquete/informacion/'.$p->id ?>">
+
+                <img class="featurette-image img-responsive img-thumbnail center-block" height="400" width="400" data-src="holder.js/500x500/auto" src="<?php echo base_url();?>img/caratulas/<?php echo $p->caratula_imagen; ?>" alt="Generic placeholder image">
+
+              </a>
             </div>
           </div>
           <hr class="featurette-divider">

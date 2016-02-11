@@ -4,6 +4,44 @@
       <div class="page-header">
           <h2>Lista <small>Paquetes</small></h2>
       </div>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paquetes <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><?php echo anchor('paquete/lista','Lista'); ?></li>
+                  <li><?php echo anchor('paquete/nuevo','Nuevo'); ?></li>
+                  <li><a href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categoria <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><?php echo anchor('categoria/lista','Lista'); ?></li>
+                  <li><?php echo anchor('categoria/nueva','Nueva'); ?></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><?php echo anchor('paquete/salir','Salir'); ?></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+              <!--Fin barra de navegacion-->
     </div>
   </div>
   <div class="row">
@@ -97,7 +135,8 @@
                                  <?php }?>
         		                    </td>
                                <td>
-                                 <?php echo anchor('categoria/detalle/'.$fila->id,'Detalle', array('class'=>'btn btn-info btn-xs')) ?>
+                                 <?php echo anchor('paquete/informacion/'.$fila->id,'Ver', array('class'=>'btn btn-primary btn-xs')) ?>
+                                 <?php echo anchor('paquete/detalle/'.$fila->id,'Detalle', array('class'=>'btn btn-info btn-xs')) ?>
                                </td>
         		                  </tr>
 

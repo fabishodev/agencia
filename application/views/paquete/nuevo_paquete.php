@@ -5,6 +5,43 @@
         <div class="page-header">
             <h2>Nuevo <small>Paquete</small></h2>
         </div>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paquetes <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('paquete/lista','Lista'); ?></li>
+                    <li><?php echo anchor('paquete/nuevo','Nuevo'); ?></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categoria <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('categoria/lista','Lista'); ?></li>
+                    <li><?php echo anchor('categoria/nueva','Nueva'); ?></li>
+                  </ul>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><?php echo anchor('paquete/salir','Salir'); ?></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+                <!--Fin barra de navegacion-->
         <div class="panel panel-default">
 
           <div class="panel-body">
@@ -72,6 +109,11 @@
                 <p class="help-block">Formato: HH:MM</p>
               </div>
               <div class="form-group">
+                <label for="lugar-salida">Lugar Salida</label>
+                <input type="text" class="form-control" id="lugar-salida" name="lugar-salida" placeholder="" required>
+                <p class="help-block">Punto de reunión de salida.</p>
+              </div>
+              <div class="form-group">
                 <label for="fecha-regreso">Fecha Regreso </label>
                 <input type="text" class="form-control" id="fecha-regreso" name="fecha-regreso" placeholder="" required>
                 <p class="help-block">Formato: AAAA-MM-DD</p>
@@ -82,10 +124,11 @@
                 <p class="help-block">Formato: HH:MM</p>
               </div>
               <div class="form-group">
-                <label for="lugar-salida">Lugar Salida</label>
-                <input type="text" class="form-control" id="lugar-salida" name="lugar-salida" placeholder="" required>
-                <p class="help-block">Punto de reunión de salida.</p>
+                <label for="lugar-regreso">Lugar Regreso</label>
+                <input type="text" class="form-control" id="lugar-regreso" name="lugar-regreso" placeholder="" required>
+                <p class="help-block">Punto de reunión de regreso.</p>
               </div>
+
             </div>
             <div class="col-sm-4">
               <div class="form-group">
@@ -137,4 +180,9 @@
 </section>
 <script>
   agencia.viajes.validar_formulario();
+  $(document).ready(function () {
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+  	$( "#fecha-salida" ).datepicker();
+  	$( "#fecha-regreso" ).datepicker();
+  });
 </script>

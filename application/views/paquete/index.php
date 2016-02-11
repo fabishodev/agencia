@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="page-header">
-        <h1>Index<small> Categoria</small></h1>
+        <h1>Index<small> Paquete</small></h1>
       </div>
       <nav class="navbar navbar-default">
         <div class="container-fluid">

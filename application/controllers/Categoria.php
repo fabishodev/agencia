@@ -36,8 +36,20 @@ class Categoria extends CI_Controller {
     $this->load->view($data['layout'], $data);
   }
 
+  public function salir() {
+     $this->session->sess_destroy();
+     $data = array();
+     redirect('admin/ingresar');
+     $this->_renderView($data);
+ }
+
   public function editarCategoria($id)
   {
+    if (!$this->session->userdata('correo') ) {
+           $this->session->sess_destroy();
+           redirect('admin/ingresar');
+       }
+
     $nombre = $this->input->post('nombre');
     $descripcion = $this->input->post('descripcion');
     $datos = array(
@@ -53,6 +65,11 @@ class Categoria extends CI_Controller {
 
   public function detalle($id)
   {
+    if (!$this->session->userdata('correo') ) {
+           $this->session->sess_destroy();
+           redirect('admin/ingresar');
+       }
+
     $data = array();
     $data['contentView'] = 'categoria/detalle_categoria';
     $data['detalle'] = $this->categoria_m->obtenerDetalleCategoria($id);
@@ -72,6 +89,11 @@ class Categoria extends CI_Controller {
 
   public function agregarNueva()
   {
+    if (!$this->session->userdata('correo') ) {
+           $this->session->sess_destroy();
+           redirect('admin/ingresar');
+       }
+
     $nombre = $this->input->post('nombre');
     $descripcion = $this->input->post('descripcion');
     $datos = array(
@@ -89,6 +111,11 @@ class Categoria extends CI_Controller {
 
   public function nueva()
   {
+    if (!$this->session->userdata('correo') ) {
+           $this->session->sess_destroy();
+           redirect('admin/ingresar');
+       }
+
     $data = array();
     $data['contentView'] = 'categoria/nueva_categoria';
     $data['scripts'] = array('agencia');
@@ -107,6 +134,11 @@ class Categoria extends CI_Controller {
 
   public function lista()
   {
+    if (!$this->session->userdata('correo') ) {
+           $this->session->sess_destroy();
+           redirect('admin/ingresar');
+       }
+
     $data = array();
     $data['contentView'] = 'categoria/lista_categorias';
     $data['lista'] = $this->categoria_m->obtenerListaCategorias();
@@ -126,6 +158,11 @@ class Categoria extends CI_Controller {
 
 	public function index()
 	{
+    if (!$this->session->userdata('correo') ) {
+           $this->session->sess_destroy();
+           redirect('admin/ingresar');
+       }
+
     $data = array();
     $data['contentView'] = 'categoria/index';
     $data['scripts'] = array('agencia');
