@@ -27,8 +27,9 @@ class Paquete extends CI_Controller {
 
    private $defaultData = array(
  		'title'			=> 'Agencia',
- 		'layout' 		=> 'layout/lytDefault',
- 		'contentView' 	=> 'vUndefined',
+ 		//'layout' 		=> 'layout/lytDefault',
+    'layout' 		=> 'plantilla/lytDefault',
+    'contentView' 	=> 'vUndefined',
  		'stylecss'		=> '',
  	  );
 
@@ -214,7 +215,8 @@ class Paquete extends CI_Controller {
   public function informacion($id)
   {
     $data = array();
-    $data['contentView'] = 'paquete/informacion_paquete';
+    //$data['contentView'] = 'paquete/informacion_paquete';
+    $data['contentView'] = 'paquete/informacion_paquete_groovin';
     $data['detalle'] = $this->paquete_m->obtenerDetallePaquete($id);
     $data['imagenes'] = $this->paquete_m->obtenerGaleriaPaquete($id);
     $data['scripts'] = array('agencia');

@@ -26,7 +26,8 @@ class Inicio extends CI_Controller {
 
    private $defaultData = array(
  		'title'			=> 'Agencia',
- 		'layout' 		=> 'layout/lytDefault',
+ 		//'layout' 		=> 'layout/lytDefault',
+    'layout' 		=> 'plantilla/lytDefault',
  		'contentView' 	=> 'vUndefined',
  		'stylecss'		=> '',
  	  );
@@ -40,7 +41,8 @@ class Inicio extends CI_Controller {
   public function index()
 	{
     $data = array();
-    $data['contentView'] = 'inicio/index';
+    //$data['contentView'] = 'inicio/index';
+    $data['contentView'] = 'inicio/index_groovin';
     $data['paquetes'] = $this->paquete_m->obtenerPaquetes();
     $data['scripts'] = array('agencia');
     $data['success'] = '';

@@ -31,7 +31,7 @@
                   <?php else: ?>
                     <div class="item">
             <?php endif; ?>
-              <img height="400" width="700" alt="<?php echo $fila->nombre_paquete ?> slide" src="<?php echo base_url();?>img/caratulas/<?php echo $fila->caratula_imagen ?>" class="img-responsive">
+              <img  alt="<?php echo $fila->nombre_paquete ?> slide" src="<?php echo base_url();?>img/caratulas/<?php echo $fila->caratula_imagen ?>" class="img-responsive">
               <div class="carousel-caption">
                 <h1 style="color: yellow;"><?php echo $fila->nombre_paquete ?></h1>
                 <p><?php echo anchor('paquete/informacion/'.$fila->id,'Información',array('class'=>'btn btn-info')) ?></p>
@@ -74,7 +74,7 @@
                 <p><?php echo anchor('paquete/informacion/'.$p->id,'Información',array('class'=>'btn btn-info btn-xs')) ?></p>
             </div>
             <div class="col-md-5">
-              <a href="<?php echo 'paquete/informacion/'.$p->id ?>">
+              <a href="<?php echo 'index.php/paquete/informacion/'.$p->id ?>">
 
                 <img class="featurette-image img-responsive img-thumbnail center-block" height="400" width="400" data-src="holder.js/500x500/auto" src="<?php echo base_url();?>img/caratulas/<?php echo $p->caratula_imagen; ?>" alt="Generic placeholder image">
 
@@ -84,11 +84,5 @@
           <hr class="featurette-divider">
         <?php endforeach; ?>
       <?php endif; ?>
-
-
-
-
-
-
      <!-- /END THE FEATURETTES -->
 </div>
