@@ -86,3 +86,4 @@
       <?php endif; ?>
      <!-- /END THE FEATURETTES -->
 </div>
+</div>

@@ -1,6 +1,5 @@
 <!--Barra de navegacion-->
 <header>
-
 <div id="navigation" class="navbar navbar-inverse navbar-fixed-top default" role="navigation">
   <div class="container">
 
@@ -15,31 +14,39 @@
     </div>
 
   <div class="navigation">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><nav>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><?php echo anchor('inicio','Home'); ?></li>
-    <li><a href="#">Paquetes</a></li>
-    <li><a href="#">Contacto</a></li>
-      </ul></nav>
+        <li class="current"><?php echo anchor('inicio','Home'); ?></li>
+        <li><?php echo anchor('paquete/nuevos','Paquetes'); ?></li>
+        <li><?php echo anchor('contacto','Contacto'); ?></li>
+        <li><?php echo anchor('carrito','<span class="glyphicon glyphicon-shopping-cart"></span>'); ?></li>
+      </ul>
+    </nav>
     </div><!-- /.navbar-collapse -->
   </div>
-
-  </div>
 </div>
-
+</div>
 </header>
-<br><br><br><br><br>
 <!--Fin barra de navegacion-->
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h2><?php echo $detalle->lugar; ?><small></small></h2>
-      <p><b><?php echo $detalle->especificaciones; ?></b></p>
-    </div>
-  </div>
+<section>
+  <div class="container">
+    <div class="row">
+  		<div class="col-md-8 col-md-offset-2">
+  			<div class="heading">
+  				<h3><span><?php echo $detalle->nombre_paquete; ?></span></h3>
+  			</div>
+  			<div class="sub-heading">
+  				<p>
+  					 <?php echo $detalle->especificaciones; ?>
+  				</p>
+  			</div>
+  		</div>
+  	</div>
   <div class="row">
     <div class="col-md-4">
-
+      <h2><?php echo $detalle->lugar; ?><small></small></h2>
+      <p class="help-block">Lugar</p>
       <h2><?php echo $detalle->duracion; ?><small></small></h2>
       <p class="help-block">Duración</p>
       <h2><?php echo $detalle->hospedaje_en; ?><small></small></h2>
@@ -53,7 +60,7 @@
       <h2><?php echo $detalle->precio; ?> <small><?php echo $detalle->denominacion; ?></small></h2>
       <p class="help-block">Precio</p>
       <?php if ($detalle->nota !== NULL): ?>
-        <h4><strong><?php echo $detalle->nota; ?></strong></h4>
+        <h3><strong><?php echo $detalle->nota; ?></strong></h3>
         <p class="help-block">Nota</p>
       <?php endif; ?>
 
@@ -79,14 +86,28 @@
       </a>
       <?php foreach ($imagenes as $i): ?>
         <a class="fancybox" rel="group" href="<?php echo base_url();?>img/caratulas/<?php echo $i->imagen;?>">
-          <img height="100" width="100" class="img-thumbnail" src="<?php echo base_url() ?>img/galerias/<?php echo $i->imagen; ?>" alt="" />
+          <img height="100" width="100" class="img-thumbnail" src="<?php echo base_url() ?>img/galerias/<?php echo $i->imagen; ?>" title="Portfolio name" alt="<?php echo $detalle->lugar; ?>" />
         </a>
       <?php endforeach; ?>
+      <br>
+      <form class="" action="<?php echo base_url();?>index.php/carrito/agregar" method="post">
+        <div class="input-group">
+          <input type="hidden" id="id" name="id" value="<?php echo $detalle->id; ?>" readonly>
+          <input type="hidden" id="price" name="price" value="<?php echo $detalle->precio; ?>" readonly>
+          <input type="hidden" id="nombre-paquete" name="nombre-paquete" value="<?php echo $detalle->nombre_paquete; ?>" readonly>
+          <input type="hidden" id="especificaciones" name="especificaciones" value="<?php echo $detalle->especificaciones; ?>" readonly>
+          <input class="btn btn-theme btn-lg" type="submit" name="submit" value="Agregar a Carrito">
+        </div>
+      </form>
 
     </div>
 
   </div>
+
+
+
 </div>
+</section>
 <script>
 $(".fancybox").fancybox({
     openEffect	: 'elastic',

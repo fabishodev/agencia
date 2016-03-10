@@ -46,7 +46,7 @@
     <script src="<?php echo base_url();?>assets/js/jquery.scrollTo.js"></script>
     <script src="<?php echo base_url();?>assets/js/jquery.fancybox.pack.js"></script>
     <script src="<?php echo base_url();?>assets/js/jquery.fancybox-media.js"></script>
-    <script src="<?php echo base_url();?>https://maps.googleapis.com/maps/api/js?key=AIzaSyASm3CwaK9qtcZEWYa-iQwHaGi3gcosAJc&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="<?php echo base_url();?>assets/js/masonry.pkgd.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/imagesloaded.js"></script>
     <script src="<?php echo base_url();?>assets/js/jquery.nicescroll.min.js"></script>
@@ -93,7 +93,7 @@
 
                         // How you would like to style the map.
                         // This is where you would paste any style found on Snazzy Maps.
-                        styles: [	{		featureType:"all",		elementType:"all",		stylers:[		{			invert_lightness:true		},		{			saturation:10		},		{			lightness:30		},		{			gamma:0.5		},		{			hue:"#5C9F24"		}		]	}	]
+                        styles: [	{		featureType:"all",		elementType:"all",		stylers:[		{			invert_lightness:false		},		{			saturation:10		},		{			lightness:30		},		{			gamma:0.5		},		{			hue:"#5C9F24"		}		]	}	]
                     };
 
                     // Get the HTML DOM element that will contain your map

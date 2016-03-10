@@ -242,6 +242,7 @@ class Paquete extends CI_Controller {
 
     $data = array();
     $data['contentView'] = 'paquete/detalle_paquete';
+    $data['layout'] = 'layout/lytDefault';
     $data['categorias'] = $this->categoria_m->obtenerListaCategorias();
     $data['detalle'] = $this->paquete_m->obtenerDetallePaquete($id);
     $data['imagenes'] = $this->paquete_m->obtenerGaleriaPaquete($id);
@@ -352,6 +353,7 @@ class Paquete extends CI_Controller {
 
     $data = array();
     $data['contentView'] = 'paquete/nuevo_paquete';
+    $data['layout'] = 'layout/lytDefault';
     $data['categorias'] = $this->categoria_m->obtenerListaCategorias();
     $data['scripts'] = array('agencia');
     $data['success'] = '';
@@ -376,6 +378,7 @@ class Paquete extends CI_Controller {
 
     $data = array();
     $data['contentView'] = 'paquete/lista_paquetes';
+    $data['layout'] = 'layout/lytDefault';
     $data['lista'] = $this->paquete_m->obtenerListaPaquetes();
     $data['scripts'] = array('agencia');
     $data['success'] = '';

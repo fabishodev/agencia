@@ -4,6 +4,30 @@ var agencia = window.agencia || {};
 agencia.viajes = (function() {
   var base_url = "http://localhost:8888/agencia/";
   return {
+    agregar_item: function(){
+      $(document).on('click', '#ordenar-platillo', function(e) {
+          $.ajax({
+                type : 'POST',
+                dataType: 'text',
+                data: $('#form-item').serialize(),
+                url: base_url+'index.php/carrito/agregar',
+                success : function(response){
+                            //alert(response.nombre);
+                            //$('#myTab a:last').tab('show');
+                            //$('#det-pedido').tab('show');
+                            //$('#detalle-pedido').load(base_url+'index.php/menu/verPedido');
+              },
+              error: function (request, status, error) {
+                  alert(request.responseText);
+                  alert('Error');
+              }
+              });
+                    //$('#detalle-pedido').tab('show');
+                    //$('.nav-tabs a[href="#detalle-pedido"]').tab('show');
+                    //e.preventDefault();
+
+          });
+    },
     validar_formulario: function() {
       $(document).ready(function() {
         $('.form-validacion').bootstrapValidator({

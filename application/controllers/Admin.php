@@ -73,7 +73,7 @@ class Admin extends CI_Controller {
 		if (!$this->session->userdata('correo') ) {
 					 $this->session->sess_destroy();
 					 redirect('admin/ingresar');
-			 }
+			}
 		$data = array();
 		$data['contentView'] = 'admin/index';
 		$data['scripts'] = array('agencia');
