@@ -23,6 +23,9 @@ class Carrito extends CI_Controller {
         parent::__construct();
 				  $this->load->model('Cliente_model', 'cliente_m');
 					$this->load->model('Orden_model', 'orden_m');
+					$this->load->model('Tour_model', 'tour_m');
+					$this->load->model('Paquete_model', 'paquete_m');
+					$this->load->library('Mensaje');
 				require_once APPPATH."/third_party/OpenPay/Openpay.php";
 			}
 
@@ -38,6 +41,20 @@ class Carrito extends CI_Controller {
      $data = array_merge($this->defaultData, $data);
      $this->load->view($data['layout'], $data);
    }
+
+	 public function actualizar_orden($id, $transaccion, $status, $autorizacion)
+	 {
+	 	$datos = array(
+			'id_respuesta' => $transaccion,
+			'status_respuesta' => $status,
+			'autorizacion_respuesta' => $autorizacion,
+		);
+		if ($this->orden_m->actualizarOrdenCab($datos,$id)) {
+			return TRUE;
+		}else {
+			return FALSE;
+		}
+	 }
 
 	 public function pagar() {
      $data = array();
@@ -84,6 +101,7 @@ class Carrito extends CI_Controller {
 	 );
 
 		$cod_cliente = $this->cliente_m->guardarCliente($cliente);
+
 		if ($cod_cliente) {
 
 			//Guardar Cabecero
@@ -94,13 +112,29 @@ class Carrito extends CI_Controller {
 				);
 
 			$cod_orden = $this->orden_m->guardarCabOrden($orden_cab);
+
 			if ($cod_orden) {
 				//Guardar Detalle
+				$caracteres = array('-e','-m','-a','-','e','m','a');
 				if ($cart = $this->cart->contents()):
 	        foreach ($cart as $item):
+						if ($this->cart->has_options($item['rowid']) == TRUE):
+              foreach ($this->cart->product_options($item['rowid']) as $option_name => $option_value):
+                 if ($option_name == 'Tarifa') {
+                   $tipo_tarifa = $option_value;
+                 }
+								 if ($option_name == 'Tipo') {
+                   $tipo_orden = $option_value;
+                 }
+               endforeach;
+             endif;
+
+						$id = str_replace($caracteres,"", $item['id']);
 						$orden_det = array(
 							'cod_cab' => $cod_orden,
-							'cod_paquete' => $item['id'],
+							'cod_paquete' => $id,
+							'tipo_orden' => $tipo_orden,
+							'tipo_tarifa' => $tipo_tarifa,
 							'cantidad' => $item['qty'],
 							'subtotal' => $item['subtotal'],
 							'fecha_orden' => date('Y-m-d H:i:s'),
@@ -121,27 +155,59 @@ class Carrito extends CI_Controller {
 			        'device_session_id' => $device_session_id,
 			        'customer' => $customer,
 			        'currency' => 'MXN',
-			        'order_id' => '00001',
+			        'order_id' => $cod_orden,
 
 			      );
 
-						$this->cart->destroy();
+						//$this->cart->destroy();
+					try {
+						$charge = $openpay->charges->create($chargeData);
 
-			    $charge = $openpay->charges->create($chargeData);
+							if ($charge) {
+								$id_respuesta = $charge->id;
+								$status_respuesta = $charge->status;
+								$autorizacion_respuesta = $charge->authorization;
+								$error_message = $charge->error_message;
+								$this->actualizar_orden($cod_orden,$id_respuesta,$status_respuesta,$autorizacion_respuesta);
+								if ($status_respuesta=='completed') {
+									if (!$this->mensaje->EnviarCorreoConfirmacionTransaccion($nombre, $correo, $id_respuesta)) {
+					          $this->session->set_userdata('danger', 'Error al enviar correo de transaccion.');
+					        }
+									$this->cart->destroy();
+									$this->session->set_userdata('success', 'Gracias por su preferencia.');
+									redirect('carrito');
+								}
+								$this->cart->destroy();
+								$this->session->set_userdata('danger', 'No se pudo realizar la transaccion.');
+								redirect('carrito');
 
+							}else {
+								$this->session->set_userdata('danger', 'No se pudo realizar el pago, intentelo de nuevo.');
+								redirect('carrito');
+								$this->cart->destroy();
+							}
 
-					  echo "<pre>";die(print_r($charge));
+					} catch (Exception $e) {
+						//var_dump($e);
+						$this->session->set_userdata('danger', 'No se pudo realizar la transaccion, intentelo de nuevo.');
+						redirect('carrito');
+					}
 
 				}else {
-					echo "No se pudo guardar el detalle del pedido, intentelo de nuevo";
+					$this->session->set_userdata('danger', 'No se pudo guardar el detalle del pedido, intentelo de nuevo.');
+					redirect('carrito');
 				}
 
 
 			}else {
-				echo "No se pudo guardar el cabecero del pedido, intentelo de nuevo";
+				$this->session->set_userdata('danger', 'No se pudo guardar el cabecero del pedido, intentelo de nuevo.');
+				redirect('carrito');
+
 			}
 		}else {
-			echo "No se pudo guardar el cliente, intentelo de nuevo";
+			$this->session->set_userdata('danger', 'No se pudo guardar el cliente, intentelo de nuevo.');
+			redirect('carrito');
+
 		}
 
 
@@ -164,15 +230,69 @@ class Carrito extends CI_Controller {
 	 public function agregar()
 	 {
 		 $id = $this->input->post('id');
-		 $precio =$this->input->post('price');
+		 $tipo_tarifa = $this->input->post('tipo-tarifa');
+		 $tipo = $this->input->post('tipo');
+		 if ($tipo == 'tour') {
+		 	$detalle = $this->tour_m->obtenerDetalleTour($id);
+			switch ($tipo_tarifa) {
+ 		 	case 'estandar':
+ 		 		$cod = $id.'-e';
+ 				$tarifa = $detalle->tarifa_publica;
+ 		 		break;
+
+ 			case 'menor':
+ 			 	$cod = $id.'-m';
+ 				$tarifa = $detalle->precio_menor;
+ 			 	break;
+
+ 			case 'adulto':
+ 				 $cod = $id.'-a';
+ 				 $tarifa = $detalle->precio_adulto_mayor;
+ 				 break;
+
+ 		 	default:
+ 		 		$cod = $id;
+ 				$tarifa = $detalle->tarifa_publica;
+ 		 		break;
+ 		 }
+
+
+		}else {
+			$detalle = $this->paquete_m->obtenerDetallePaquete($id);
+			switch ($tipo_tarifa) {
+ 		 	case 'estandar':
+ 		 		$cod = $id.'-e';
+ 				$tarifa = $detalle->precio;
+ 		 		break;
+
+ 			case 'menor':
+ 			 	$cod = $id.'-m';
+ 				$tarifa = $detalle->precio_menor;
+ 			 	break;
+
+ 			case 'adulto':
+ 				 $cod = $id.'-a';
+ 				 $tarifa = $detalle->precio_adulto_mayor;
+ 				 break;
+
+ 		 	default:
+ 		 		$cod = $id;
+ 				$tarifa = $detalle->precio;
+ 		 		break;
+ 		 }
+
+		}
+
+
 		 $nombre_paquete = $this->input->post('nombre-paquete');
 		 $especificaciones = $this->input->post('especificaciones');
+
 		 $datos_item = array(
-	          'id' => $id,
+	          'id' => $cod,
 	          'qty' => 1,
-	          'price' => $precio,
+	          'price' => $tarifa,
 	          'name' => $nombre_paquete,
-	          'options' => array('Especificaciones' => $especificaciones),
+	          'options' => array('Especificaciones' => $especificaciones,'Tarifa' => $tipo_tarifa,'Tipo' => $tipo),
 	  );
 	//	echo "<pre>";die(print_r($datos_item));
 		$this->cart->insert($datos_item);
@@ -191,6 +311,16 @@ class Carrito extends CI_Controller {
      $data = array();
      $data['contentView'] = 'carrito/index';
      $data['scripts'] = array('agencia');
+		 $data['success'] = '';
+     if ($this->session->userdata('success')) {
+       $success = $this->session->userdata('success');
+       $data['success'] = $success;
+     }
+     $data['danger'] = '';
+     if ($this->session->userdata('danger')) {
+       $danger = $this->session->userdata('danger');
+       $data['danger'] = $danger;
+     }
      $this->_renderView($data);
   }
 }

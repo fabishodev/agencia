@@ -19,6 +19,7 @@
       <nav>
       <ul class="nav navbar-nav navbar-right">
         <li class="current"><?php echo anchor('inicio', 'Home'); ?></li>
+        <li><?php echo anchor('tour/tours','Tours'); ?></li>
         <li><?php echo anchor('paquete/nuevos', 'Paquetes'); ?></li>
         <li><?php echo anchor('contacto', 'Contacto'); ?></li>
         <li><?php echo anchor('carrito', '<span class="glyphicon glyphicon-shopping-cart"></span>'); ?></li>
@@ -50,13 +51,27 @@
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-    <?php echo form_open('carrito/actualizar'); ?>
+      <?php if ($success != '') { ?>
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong><?php echo $success ?></strong>
+        </div>
+      <?php $this->session->set_userdata('success', '');} ?>
+      <?php if ($danger != '') { ?>
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong><?php echo $danger ?></strong>
+            </div>
+      <?php $this->session->set_userdata('danger', '');} ?>
+
+
+      <?php echo form_open('carrito/actualizar'); ?>
 
     <table class="table" cellpadding="6" cellspacing="1" style="width:100%" border="0">
 
       <tr>
         <th>Opciones</th>
-        <th>Cant</th>
+        <th>Personas</th>
         <th>Descripcion</th>
         <th style="text-align:right">Precio</th>
         <th style="text-align:right">Sub-Total</th>

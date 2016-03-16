@@ -4,6 +4,11 @@ var agencia = window.agencia || {};
 agencia.viajes = (function() {
   var base_url = "http://localhost:8888/agencia/";
   return {
+    obtener_form_contacto: function(){
+      $(document).ready(function() {
+        $('#contenido').load(base_url+'/index.php/contacto/obtenerFormulario');
+      });
+    },
     agregar_item: function(){
       $(document).on('click', '#ordenar-platillo', function(e) {
           $.ajax({

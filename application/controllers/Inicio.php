@@ -22,6 +22,7 @@ class Inicio extends CI_Controller {
    function __construct() {
         parent::__construct();
         $this->load->model('Paquete_model', 'paquete_m');
+        $this->load->model('Tour_model', 'tour_m');
     }
 
    private $defaultData = array(
@@ -44,6 +45,7 @@ class Inicio extends CI_Controller {
     //$data['contentView'] = 'inicio/index';
     $data['contentView'] = 'inicio/index_groovin';
     $data['paquetes'] = $this->paquete_m->obtenerPaquetes();
+    $data['tours'] = $this->tour_m->obtenerTours();
     $data['scripts'] = array('agencia');
     $data['success'] = '';
     if ($this->session->userdata('success')) {

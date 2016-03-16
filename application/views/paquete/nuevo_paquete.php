@@ -21,6 +21,18 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tours <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('tour/lista','Lista'); ?></li>
+                    <li><?php echo anchor('tour/nuevo','Nuevo'); ?></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paquetes <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><?php echo anchor('paquete/lista','Lista'); ?></li>
@@ -32,6 +44,25 @@
                   <ul class="dropdown-menu">
                     <li><?php echo anchor('categoria/lista','Lista'); ?></li>
                     <li><?php echo anchor('categoria/nueva','Nueva'); ?></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operadoras <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('operadora/lista','Lista'); ?></li>
+                    <li><?php echo anchor('operadora/nueva','Nueva'); ?></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ordenes <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('orden/lista','Lista'); ?></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mensajes <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('contacto/lista','Lista'); ?></li>
                   </ul>
                 </li>
               </ul>
@@ -70,6 +101,15 @@
                   <option value="">Seleccione</option>
                   <?php foreach ($categorias as $c) { ?>
                     <option value="<?php echo $c->id;?>"><?php echo $c->nombre;?></option>
+                  <?php }?>
+                </select>
+              </div>
+              <div class="form-group">
+            <label for="sel-operadora" class="control-label">Operadora</label><br>
+                <select class="form-control" id="sel-operadora" name="sel-operadora" required>
+                  <option value="">Seleccione</option>
+                  <?php foreach ($operadoras as $o) { ?>
+                    <option value="<?php echo $o->id;?>"><?php echo $o->nombre_operadora;?></option>
                   <?php }?>
                 </select>
               </div>
@@ -145,6 +185,16 @@
                 <label for="precio">Precio </label>
                 <input type="text" class="form-control" id="precio" name="precio" placeholder="" required>
                 <p class="help-block">Precio total del paquete.</p>
+              </div>
+              <div class="form-group">
+                <label for="precio-menor">Precio Menor Edad</label>
+                <input type="text" class="form-control" id="precio-menor" name="precio-menor" placeholder="" required>
+                <p class="help-block">Precio para menores de edad.</p>
+              </div>
+              <div class="form-group">
+                <label for="precio-adulto">Precio Menor Edad</label>
+                <input type="text" class="form-control" id="precio-adulto" name="precio-adulto" placeholder="" required>
+                <p class="help-block">Precio para adultos mayores de edad.</p>
               </div>
               <div class="form-group">
       					<label for="denominacion">Denominación </label>

@@ -69,6 +69,12 @@
             <li><?php echo anchor('paquete/nuevos','Nuevos'); ?></li>
           </ul>
         </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tours <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><?php echo anchor('tour/tours','Nuevos'); ?></li>
+          </ul>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><?php echo anchor('admin/ingresar','Ingresar'); ?></li>

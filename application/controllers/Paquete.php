@@ -22,7 +22,7 @@ class Paquete extends CI_Controller {
         parent::__construct();
         $this->load->model('Paquete_model', 'paquete_m');
         $this->load->model('Categoria_model', 'categoria_m');
-
+        $this->load->model('Operadora_model', 'operadora_m');
     }
 
    private $defaultData = array(
@@ -166,6 +166,7 @@ class Paquete extends CI_Controller {
 
 
     $cod_categoria = $this->input->post('sel-categoria');
+    $cod_operadora = $this->input->post('sel-operadora');
     $nombre = $this->input->post('nombre');
     $especificaciones = $this->input->post('especificaciones');
     $lugar = $this->input->post('lugar');
@@ -181,10 +182,13 @@ class Paquete extends CI_Controller {
     $estatus = $this->input->post('estatus');
     $cod_hotel = NULL;
     $precio = $this->input->post('precio');
+    $precio_menor = $this->input->post('precio-menor');
+    $precio_adulto = $this->input->post('precio-adulto');
     $denominacion = $this->input->post('denominacion');
     $nota = $this->input->post('nota');
     $datos = array(
       'cod_categoria' => $cod_categoria,
+      'cod_operadora' => $cod_operadora,
       'nombre_paquete' => $nombre,
       'especificaciones' => $especificaciones,
       'lugar' => $lugar,
@@ -200,6 +204,8 @@ class Paquete extends CI_Controller {
       'cod_hotel' => $cod_hotel,
       'caratula_imagen' => $caratula,
       'precio' => $precio,
+      'precio_menor' => $precio_menor,
+      'precio_adulto_mayor' => $precio_adulto,
       'denominacion' => $denominacion,
       'nota' => $nota,
       'estatus' => $estatus,
@@ -244,6 +250,7 @@ class Paquete extends CI_Controller {
     $data['contentView'] = 'paquete/detalle_paquete';
     $data['layout'] = 'layout/lytDefault';
     $data['categorias'] = $this->categoria_m->obtenerListaCategorias();
+    $data['operadoras'] = $this->operadora_m->obtenerListaOperadoras();
     $data['detalle'] = $this->paquete_m->obtenerDetallePaquete($id);
     $data['imagenes'] = $this->paquete_m->obtenerGaleriaPaquete($id);
     $data['scripts'] = array('agencia');
@@ -299,6 +306,7 @@ class Paquete extends CI_Controller {
 
 
     $cod_categoria = $this->input->post('sel-categoria');
+    $cod_operadora = $this->input->post('sel-operadora');
     $nombre = $this->input->post('nombre');
     $especificaciones = $this->input->post('especificaciones');
     $lugar = $this->input->post('lugar');
@@ -313,10 +321,13 @@ class Paquete extends CI_Controller {
     $hospedaje_en = $this->input->post('hospedaje');
     $cod_hotel = NULL;
     $precio = $this->input->post('precio');
+    $precio_menor = $this->input->post('precio-menor');
+    $precio_adulto = $this->input->post('precio-adulto');
     $denominacion = $this->input->post('denominacion');
     $nota = $this->input->post('nota');
     $datos = array(
       'cod_categoria' => $cod_categoria,
+      'cod_operadora' => $cod_operadora,
       'nombre_paquete' => $nombre,
       'especificaciones' => $especificaciones,
       'lugar' => $lugar,
@@ -332,6 +343,8 @@ class Paquete extends CI_Controller {
       'cod_hotel' => $cod_hotel,
       'caratula_imagen' => $caratula,
       'precio' => $precio,
+      'precio_menor' => $precio_menor,
+      'precio_adulto_mayor' => $precio_adulto,
       'denominacion' => $denominacion,
       'nota' => $nota,
       'estatus' => 1,
@@ -355,6 +368,7 @@ class Paquete extends CI_Controller {
     $data['contentView'] = 'paquete/nuevo_paquete';
     $data['layout'] = 'layout/lytDefault';
     $data['categorias'] = $this->categoria_m->obtenerListaCategorias();
+    $data['operadoras'] = $this->operadora_m->obtenerListaOperadoras();
     $data['scripts'] = array('agencia');
     $data['success'] = '';
     if ($this->session->userdata('success')) {

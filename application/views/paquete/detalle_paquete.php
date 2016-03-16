@@ -47,6 +47,18 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tours <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('tour/lista','Lista'); ?></li>
+                    <li><?php echo anchor('tour/nuevo','Nuevo'); ?></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paquetes <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><?php echo anchor('paquete/informacion/'.$detalle->id,'Ver') ?></li>
@@ -59,6 +71,25 @@
                   <ul class="dropdown-menu">
                     <li><?php echo anchor('categoria/lista','Lista'); ?></li>
                     <li><?php echo anchor('categoria/nueva','Nueva'); ?></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operadoras <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('operadora/lista','Lista'); ?></li>
+                    <li><?php echo anchor('operadora/nueva','Nueva'); ?></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ordenes <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('orden/lista','Lista'); ?></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mensajes <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><?php echo anchor('contacto/lista','Lista'); ?></li>
                   </ul>
                 </li>
                 <li class="dropdown">
@@ -124,6 +155,20 @@
                   <?php }?>
                 </select>
               </div>
+              <div class="form-group">
+            <label for="sel-operadora" class="control-label">Operadora</label><br>
+                <select class="form-control" id="sel-operadora" name="sel-operadora" required>
+                  <option value="">Seleccione</option>
+                  <?php foreach ($operadoras as $o) { ?>
+                    <?php if ($o->id == $detalle->cod_operadora): ?>
+                      <?php $seleccionado = "selected" ?>
+                      <?php else: ?>
+                        <?php $seleccionado = "" ?>
+                    <?php endif; ?>
+                    <option <?php echo $seleccionado ?> value="<?php echo $o->id;?>"><?php echo $o->nombre_operadora;?></option>
+                  <?php }?>
+                </select>
+              </div>
 
               <div class="form-group">
                 <label for="nombre">Nombre Paquete</label>
@@ -161,7 +206,7 @@
               </div>
               <div class="form-group">
                 <label for="lugar-salida">Lugar Salida</label>
-                <input type="text" class="form-control" id="lugar-salida" name="lugar-salida" placeholder=""  value="<?php echo $detalle->lugar_salida ?>"required>
+                <input type="text" class="form-control" id="lugar-salida" name="lugar-salida" placeholder=""  value="<?php echo $detalle->lugar_salida ?>" required>
                 <p class="help-block">Punto de reunión de salida.</p>
               </div>
               <div class="form-group">
@@ -202,7 +247,17 @@
               <div class="form-group">
                 <label for="precio">Precio </label>
                 <input type="text" class="form-control" id="precio" name="precio" value="<?php echo $detalle->precio ?>" placeholder="" required>
-                <p class="help-block">Precio total del paquete.</p>
+                <p class="help-block">Precio estandar total del paquete.</p>
+              </div>
+              <div class="form-group">
+                <label for="precio-menor">Precio Menor </label>
+                <input type="text" class="form-control" id="precio-menor" name="precio-menor" value="<?php echo $detalle->precio_menor ?>" placeholder="" required>
+                <p class="help-block">Precio para menor de edad.</p>
+              </div>
+              <div class="form-group">
+                <label for="precio-adulto">Precio Adulto Mayor </label>
+                <input type="text" class="form-control" id="precio-adulto" name="precio-adulto" value="<?php echo $detalle->precio_adulto_mayor ?>" placeholder="" required>
+                <p class="help-block">Precio para adulto mayor de edad.</p>
               </div>
               <div class="form-group">
       					<label for="denominacion">Denominación </label>

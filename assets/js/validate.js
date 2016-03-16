@@ -3,6 +3,7 @@ jQuery(document).ready(function($) {
 "use strict";
 
 	//Contact
+
 	$('form.contactForm').submit(function(){
 
 		var f = $(this).find('.form-group'),
@@ -76,11 +77,12 @@ jQuery(document).ready(function($) {
 				i.next('.validation').html( ( ierror ? (i.attr('data-msg') != undefined ? i.attr('data-msg') : 'wrong Input') : '' ) ).show('blind');
 			}
 		});
+		/*
 		if( ferror ) return false;
 			else var str = $(this).serialize();
 				$.ajax({
 				type: "POST",
-				url: "contact/contact.php",
+				url: base_url+'index.php/contacto/mensaje',
 				data: str,
 				success: function(msg){
 			$("#sendmessage").addClass("show");
@@ -98,6 +100,7 @@ jQuery(document).ready(function($) {
 
 			$(this).html(result);});}});
 				return false;
+				*/
 	});
 
 });

@@ -2,8 +2,7 @@
 <head>
   <?php echo link_tag('assets/css/style.css'); ?>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<script type="text/javascript"
-  src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 
   <script type="text/javascript"
         src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
@@ -32,6 +31,7 @@
             };
 
             var error_callbak = function(response) {
+                alert('Fallo en la transacción');
                 var desc = response.data.description != undefined ? response.data.description : response.message;
                 alert("ERROR [" + response.status + "] " + desc);
                 $("#pay-button").prop("disabled", false);
@@ -64,6 +64,7 @@
         <nav>
         <ul class="nav navbar-nav navbar-right">
           <li class="current"><?php echo anchor('inicio', 'Home'); ?></li>
+          <li><?php echo anchor('tour/tours','Tours'); ?></li>
           <li><?php echo anchor('paquete/nuevos', 'Paquetes'); ?></li>
           <li><?php echo anchor('contacto', 'Contacto'); ?></li>
           <li><?php echo anchor('carrito', '<span class="glyphicon glyphicon-shopping-cart"></span>'); ?></li>

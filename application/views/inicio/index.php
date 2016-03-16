@@ -56,10 +56,12 @@
     </div>
   </div>
   <?php else: ?>
-    <div class="jumbotron">
-      <h1>Hola, viajero!</h1>
-      <p>Por el momento no tenemos ningun viaje que ofrecerte.</p>
-    </div>
+    <section>
+      <div class="jumbotron">
+        <h1>Hola, viajero!</h1>
+        <p>Por el momento no tenemos ningun viaje que ofrecerte.</p>
+      </div>
+    </section>
   <?php endif; ?>
 </div>
 <!-- START THE FEATURETTES -->

@@ -17,3 +17,7 @@
     <p>Por el momento no tenemos ningun viaje que ofrecerte.</p>
   </div>
 <?php endif; ?>
+
+<li><a class="fancybox" data-fancybox-group="gallery" title="Portfolio name" href="../img/caratulas/banner-circuitodeltequila.jpg"><img src="../img/caratulas/banner-circuitodeltequila.jpg" alt="" /></a>
+  <button class="btn btn-xs btn-success" type="button" name="button">Mas Informacion</button>
+</li>

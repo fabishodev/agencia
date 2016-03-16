@@ -19,6 +19,7 @@
       <nav>
       <ul class="nav navbar-nav navbar-right">
         <li class="current"><?php echo anchor('inicio','Home'); ?></li>
+        <li><?php echo anchor('tour/tours','Tours'); ?></li>
         <li><?php echo anchor('paquete/nuevos','Paquetes'); ?></li>
         <li><?php echo anchor('contacto','Contacto'); ?></li>
         <li><?php echo anchor('carrito','<span class="glyphicon glyphicon-shopping-cart"></span>'); ?></li>
@@ -57,7 +58,8 @@
                </a>
              </div>
              <div class="col-md-10">
-               <h2 class=""><?php echo $p->nombre_paquete; ?> <span class="text-muted"><?php echo $p->precio.' '.$p->denominacion ?></span></h2>
+               <h2 class=""><?php echo $p->nombre_paquete; ?></h2>
+               <h2 class=""> <span class="text-muted">$<?php echo number_format($p->precio,2).' '.$p->denominacion ?></span></h2>
                <p class="lead"><?php echo $p->especificaciones; ?></p>
                  <p><?php echo anchor('paquete/informacion/'.$p->id,'Más Información',array('class'=>'btn btn-theme btn-lg')) ?></p>
              </div>
