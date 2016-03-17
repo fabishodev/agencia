@@ -28,3 +28,24 @@ $db['default'] = array(
 
 js/agencia.js
 var base_url = "http://localhost:8888/agencia/";
+
+Ruta Admin
+http://localhost:8888/agencia/index.php/admin/ingresar
+fabishodev@gmail.com
+12345
+
+Ruta Openpay
+https://sandbox-dashboard.openpay.mx/login
+fabishodev@gmail.com
+a2d0m1i6n
+
+Tarjetas Validas
+4111111111111111	Visa	BANAMEX
+4242424242424242	Visa	BANCOMER
+5555555555554444	MasterCard	BANCO SANTANDER SERFIN
+5105105105105100	MasterCard	SCOTIABANK
+
+Tarjetas No Validas
+4222222222222220	3001	La tarjeta fue rechazada.
+4000000000000069	3002	La tarjeta ha expirado.
+4444444444444448	3003	La tarjeta no tiene fondos suficientes.
