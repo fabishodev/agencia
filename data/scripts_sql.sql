@@ -24,7 +24,8 @@ SELECT
 	b.`tipo_tarifa`,
 	CASE b.`tipo_orden` WHEN 'tour' THEN d.`nombre_tour` ELSE c.`nombre_paquete` END nombre,
 	CASE b.`tipo_orden` WHEN 'tour' THEN d.`ciudad_lugar` ELSE c.`lugar` END ciudad_lugar,
-	b.`cantidad`
+	b.`cantidad`,
+	b.`fecha_reservacion`
 FROM `orden_cabecero` a
 LEFT JOIN `orden_detalle` b ON (a.`id`=b.`cod_cab`)
 LEFT JOIN `cat_paquetes` c ON (b.`cod_paquete`=c.`id`)

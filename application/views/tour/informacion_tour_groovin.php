@@ -80,17 +80,17 @@
         <img height="300" width="300" class="img-thumbnail" src="<?php echo base_url() ?>img/caratulas/<?php echo $detalle->caratula_imagen; ?>" alt="" />
       </a>
       <?php foreach ($imagenes as $i): ?>
-        <a class="fancybox" rel="group" href="<?php echo base_url();?>img/galerias/<?php echo $i->imagen;?>" title="<?php echo $detalle->nombre_tour;?>">>
+        <a class="fancybox" rel="group" href="<?php echo base_url();?>img/galerias/<?php echo $i->imagen;?>" title="<?php echo $detalle->nombre_tour;?>">
           <img height="100" width="100" class="img-thumbnail" src="<?php echo base_url() ?>img/galerias/<?php echo $i->imagen; ?>" title="Portfolio name" alt="<?php echo $detalle->ciudad_lugar; ?>" />
         </a>
       <?php endforeach; ?>
       <br>
-      <form class="" action="<?php echo base_url();?>index.php/carrito/agregar" method="post">
+      <form class="form-validacion" action="<?php echo base_url();?>index.php/carrito/agregar" method="post">
         <div class="input-group">
-          <input type="hidden" id="id" name="id" value="<?php echo $detalle->id; ?>" readonly>
-          <input type="hidden" id="tipo" name="tipo" value="tour" readonly>
-          <input type="hidden" id="nombre-paquete" name="nombre-paquete" value="<?php echo $detalle->ciudad_lugar; ?>" readonly>
-          <input type="hidden" id="especificaciones" name="especificaciones" value="<?php echo $detalle->nombre_tour; ?>" readonly>
+          <input type="hidden" id="id" name="id" value="<?php echo $detalle->id; ?>" readonly >
+          <input type="hidden" id="tipo" name="tipo" value="tour" readonly >
+          <input type="hidden" id="nombre-paquete" name="nombre-paquete" value="<?php echo $detalle->ciudad_lugar; ?>" readonly >
+          <input type="hidden" id="especificaciones" name="especificaciones" value="<?php echo $detalle->nombre_tour; ?>" readonly >
           <div class="form-group">
             <label for="solicita-fac">Seleccione tarifa...</label><br>
             <div class="radio">
@@ -111,11 +111,18 @@
               Adulto Mayor($<?php echo number_format($detalle->precio_adulto_mayor,2); ?>)
               </label>
             </div>
-
-            <div id="out"></div>
           </div>
-          <input class="btn btn-theme btn-lg" type="submit" name="submit" value="Agregar a Carrito">
-        </div>
+            </div>
+          <div class="form-group">
+            <label for="fecha-reservacion">Fecha Reservación</label>
+            <input type="text" class="form-control" id="fecha-reservacion" name="fecha-reservacion" placeholder="" required>
+          </div>
+          <div class="form-group">
+            <p>
+              <button type="submit" name="button" class="btn btn-theme btn-lg">Agregar a Carrito</button>
+            </p>
+          </div>
+
       </form>
 
     </div>
@@ -128,14 +135,9 @@
 </section>
 
 <script>
-(function ($) {
-$(".fancybox").fancybox({
-    openEffect	: 'elastic',
-      closeEffect	: 'elastic',
-      helpers : {
-      media : {}
-    }
-  });
-  })(jQuery);
-
+agencia.viajes.validar_formulario();
+$(document).ready(function() {
+  $.datepicker.setDefaults($.datepicker.regional['es']);
+  $( "#fecha-reservacion" ).datepicker();
+});
 </script>

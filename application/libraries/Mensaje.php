@@ -14,8 +14,8 @@ class Mensaje {
                 ->setHost('smtp.gmail.com')
                 ->setPort(465)
                 ->setEncryption('ssl')
-                ->setUsername('fabishodev@gmail.com')
-                ->setPassword('marf$841104');
+                ->setUsername('agencia@gmail.com')
+                ->setPassword('passsword');
 
                 //Create the Mailer using your created Transport
                 $mailer = Swift_Mailer::newInstance($transport);
@@ -29,7 +29,7 @@ class Mensaje {
 
                 $message->setSubject('Confirmacion Transaccion Agencia');
                 //no_reply@ugto.mx
-                $message->setFrom(array('fabishodev@gmail.com' => 'Agencia'));
+                $message->setFrom(array('agencia@gmail.com' => 'Agencia'));
                 $message->addTo($email);
                 //$message->addTo('mgsnikips@gmail.com');
 

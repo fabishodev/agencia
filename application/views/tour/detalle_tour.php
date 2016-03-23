@@ -236,6 +236,16 @@
                 <input type="text" class="form-control" id="vigencia" name="vigencia" placeholder="" value="<?php echo $detalle->vigencia ?>" required>
                 <p class="help-block">Vigencia del tour.</p>
               </div>
+              <div class="form-group">
+                <label for="min-reservacion">Num Minimo Reservacion </label>
+                <input type="text" class="form-control" id="min-reservacion" name="min-reservacion" placeholder="" value="<?php echo $detalle->min_reservaciones ?>" required>
+                <p class="help-block">Número minimo de reservaciones por tour.</p>
+              </div>
+              <div class="form-group">
+                <label for="max-reservacion">Num Maximo Reservacion </label>
+                <input type="text" class="form-control" id="max-reservacion" name="max-reservacion" placeholder="" value="<?php echo $detalle->max_reservaciones ?>" required>
+                <p class="help-block">Número maximo de reservaciones por tour.</p>
+              </div>
             </div>
             <div class="col-sm-4">
 
@@ -287,11 +297,12 @@
                 <input type="file" id="upl" name="upl">
                 <p class="help-block">Caratula del Tour.</p>
               </div>
+              <div class="form-group">
+                <button type="submit" name="button" class="btn btn-success">Editar</button>
+                <?php echo anchor('tour/lista/','Regresar a lista', array('class'=>'btn btn-primary')) ?>
+              </div>
             </div>
-            <div class="form-group">
-              <button type="submit" name="button" class="btn btn-success">Editar</button>
-              <?php echo anchor('tour/lista/','Regresar a lista', array('class'=>'btn btn-primary')) ?>
-            </div>
+
               </form>
           </div>
 

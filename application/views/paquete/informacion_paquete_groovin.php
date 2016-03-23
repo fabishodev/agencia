@@ -133,14 +133,3 @@
 
 </div>
 </section>
-<script>
-(function ($) {
-$(".fancybox").fancybox({
-    openEffect	: 'elastic',
-      closeEffect	: 'elastic',
-      helpers : {
-      media : {}
-    }
-  });
-  })(jQuery);
-</script>

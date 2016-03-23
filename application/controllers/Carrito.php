@@ -232,8 +232,10 @@ class Carrito extends CI_Controller {
 		 $id = $this->input->post('id');
 		 $tipo_tarifa = $this->input->post('tipo-tarifa');
 		 $tipo = $this->input->post('tipo');
+		 $fecha = $this->input->post('fecha-reservacion');
 		 if ($tipo == 'tour') {
 		 	$detalle = $this->tour_m->obtenerDetalleTour($id);
+			$fecha_reservacion = date('Y-m-d',  strtotime($fecha));
 			switch ($tipo_tarifa) {
  		 	case 'estandar':
  		 		$cod = $id.'-e';
@@ -259,6 +261,7 @@ class Carrito extends CI_Controller {
 
 		}else {
 			$detalle = $this->paquete_m->obtenerDetallePaquete($id);
+			$fecha_reservacion = $detalle->fecha_salida;
 			switch ($tipo_tarifa) {
  		 	case 'estandar':
  		 		$cod = $id.'-e';
@@ -292,7 +295,12 @@ class Carrito extends CI_Controller {
 	          'qty' => 1,
 	          'price' => $tarifa,
 	          'name' => $nombre_paquete,
-	          'options' => array('Especificaciones' => $especificaciones,'Tarifa' => $tipo_tarifa,'Tipo' => $tipo),
+	          'options' => array(
+							'Especificaciones' => $especificaciones,
+							'Tarifa' => $tipo_tarifa,
+							'Tipo' => $tipo,
+							'Fecha Reservación' => $fecha_reservacion,
+						),
 	  );
 	//	echo "<pre>";die(print_r($datos_item));
 		$this->cart->insert($datos_item);

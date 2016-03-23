@@ -37,6 +37,11 @@ agencia.viajes = (function() {
       $(document).ready(function() {
         $('.form-validacion').bootstrapValidator({
           message: 'This value is not valid',
+          errors: {
+            require: 'Este valor es requerido',
+            match: 'Does not match',
+            minlength: 'Not long enough',
+          },
           feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',

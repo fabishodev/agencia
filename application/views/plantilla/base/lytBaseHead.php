@@ -8,6 +8,7 @@
 <meta name="author" content="" />
 <!-- styles -->
 <?php echo link_tag('assets/css/fancybox/jquery.fancybox.css'); ?>
+<?php echo link_tag('css/lib/jquery-ui.min.css'); ?>
 <?php echo link_tag('css/lib/bootstrap.min.css'); ?>
 <?php echo link_tag('assets/css/bootstrap-theme.css'); ?>
 <?php echo link_tag('assets/css/slippry.css'); ?>
@@ -23,6 +24,7 @@
     <script src="<?php echo base_url();?>js/lib/jquery-2.1.4.min.js"></script>
     <script src="<?php echo base_url();?>js/lib/bootstrapValidator.js" type="text/javascript"></script>
     <script src="<?php echo base_url();?>assets/js/modernizr.custom.js"></script>
+    <script src="<?php echo base_url();?>js/lib/jquery-ui.min.js"></script>
     <?php
     if (isset($scripts)):
     foreach ($scripts as $js):?>

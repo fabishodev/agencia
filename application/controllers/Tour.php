@@ -215,6 +215,8 @@ class Tour extends CI_Controller {
     $denominacion = $this->input->post('denominacion');
     $nota = $this->input->post('nota');
     $estatus = $this->input->post('estatus');
+    $min_reservaciones = $this->input->post('min-reservacion');
+    $max_reservaciones = $this->input->post('max-reservacion');
     $datos = array(
       'cod_operadora' => $cod_operadora,
       'nombre_tour' => $nombre,
@@ -245,6 +247,8 @@ class Tour extends CI_Controller {
       'nota' => $nota,
       'dias_salidas' => $dia_salida,
       'horarios_salidas' => $horarios_salida,
+      'min_reservaciones' => $min_reservaciones,
+      'max_reservaciones' => $max_reservaciones,
       'cod_usuario' => 1,
       'fecha_actualizado' => date('Y-m-d H:i:s'),
     );
@@ -346,6 +350,8 @@ class Tour extends CI_Controller {
     $cod_hotel = NULL;
     $denominacion = $this->input->post('denominacion');
     $nota = $this->input->post('nota');
+    $min_reservaciones = $this->input->post('min-reservacion');
+    $max_reservaciones = $this->input->post('max-reservacion');
     $datos = array(
       'cod_categoria' => 4,
       'cod_operadora' => $cod_operadora,
@@ -377,6 +383,8 @@ class Tour extends CI_Controller {
       'nota' => $nota,
       'dias_salidas' => $dia_salida,
       'horarios_salidas' => $horarios_salida,
+      'min_reservaciones' => $min_reservaciones,
+      'max_reservaciones' => $max_reservaciones,
       'cod_usuario' => 1,
       'fecha_creado' => date('Y-m-d H:i:s'),
     );

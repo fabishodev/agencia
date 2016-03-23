@@ -31,13 +31,9 @@ var base_url = "http://localhost:8888/agencia/";
 
 Ruta Admin
 http://localhost:8888/agencia/index.php/admin/ingresar
-fabishodev@gmail.com
-12345
 
 Ruta Openpay
 https://sandbox-dashboard.openpay.mx/login
-fabishodev@gmail.com
-a2d0m1i6n
 
 Tarjetas Validas
 4111111111111111	Visa	BANAMEX
