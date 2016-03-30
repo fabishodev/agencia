@@ -134,6 +134,11 @@
                 <input type="text" class="form-control" id="duracion" name="duracion" placeholder="" required>
                 <p class="help-block">Ejemplo: 4 dias, 3 noches.</p>
               </div>
+              <div class="form-group">
+                <label for="vigencia">Vigencia</label>
+                <input type="text" class="form-control" id="vigencia" name="vigencia" placeholder="" required>
+                <p class="help-block">Ultima fecha para reservar o vigencia del paquete.</p>
+              </div>
 
 
             </div>
@@ -167,6 +172,16 @@
                 <label for="lugar-regreso">Lugar Regreso</label>
                 <input type="text" class="form-control" id="lugar-regreso" name="lugar-regreso" placeholder="" required>
                 <p class="help-block">Punto de reunión de regreso.</p>
+              </div>
+              <div class="form-group">
+                <label for="min-reservacion">Num Minimo Reservacion </label>
+                <input type="text" class="form-control" id="min-reservacion" name="min-reservacion" placeholder="" required>
+                <p class="help-block">Número minimo de reservaciones por paquete.</p>
+              </div>
+              <div class="form-group">
+                <label for="max-reservacion">Num Maximo Reservacion </label>
+                <input type="text" class="form-control" id="max-reservacion" name="max-reservacion" placeholder="" required>
+                <p class="help-block">Número maximo de reservaciones por paquete.</p>
               </div>
 
             </div>
@@ -213,11 +228,12 @@
                 <input type="file" id="upl" name="upl" required>
                 <p class="help-block">Caratula del Paquete.</p>
               </div>
+              <div class="form-group">
+                <button type="submit" name="button" class="btn btn-success">Agregar</button>
+                <?php echo anchor('paquete/lista/','Regresar a lista', array('class'=>'btn btn-primary')) ?>
+              </div>
             </div>
-            <div class="form-group">
-              <button type="submit" name="button" class="btn btn-success">Agregar</button>
-              <?php echo anchor('paquete/lista/','Regresar a lista', array('class'=>'btn btn-primary')) ?>
-            </div>
+
               </form>
           </div>
 
@@ -234,5 +250,6 @@
     $.datepicker.setDefaults($.datepicker.regional['es']);
   	$( "#fecha-salida" ).datepicker();
   	$( "#fecha-regreso" ).datepicker();
+    $( "#vigencia" ).datepicker();
   });
 </script>

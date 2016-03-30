@@ -60,7 +60,7 @@
       <p class="help-block">Todo Incluido</p>
       <h2>$<?php echo number_format($detalle->precio,2); ?> <small><?php echo $detalle->denominacion; ?></small></h2>
       <p class="help-block">Precio</p>
-      <?php if ($detalle->nota !== NULL): ?>
+      <?php if ($detalle->nota !== ""): ?>
         <h3><strong><?php echo $detalle->nota; ?></strong></h3>
         <p class="help-block">Nota</p>
       <?php endif; ?>
@@ -79,6 +79,8 @@
       <p class="help-block">Hora</p>
       <h2><?php echo $detalle->lugar_regreso; ?><small></small></h2>
       <p class="help-block">Lugar</p>
+      <h2><?php echo $lugares->lugares_disponibles; ?><small></small></h2>
+      <p class="help-block">Disponibles</p>
 
     </div>
     <div class="col-md-4">

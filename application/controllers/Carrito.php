@@ -126,6 +126,9 @@ class Carrito extends CI_Controller {
 								 if ($option_name == 'Tipo') {
                    $tipo_orden = $option_value;
                  }
+								 if ($option_name == 'Fecha Reservación') {
+                   $fecha_reservacion = $option_value;
+                 }
                endforeach;
              endif;
 
@@ -137,6 +140,7 @@ class Carrito extends CI_Controller {
 							'tipo_tarifa' => $tipo_tarifa,
 							'cantidad' => $item['qty'],
 							'subtotal' => $item['subtotal'],
+							'fecha_reservacion' => $fecha_reservacion,
 							'fecha_orden' => date('Y-m-d H:i:s'),
 						);
 					$cod_det = $this->orden_m->guardarDetOrden($orden_det);

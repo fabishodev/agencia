@@ -60,7 +60,7 @@
       <p class="help-block">Todo Incluido</p>
       <h2>$<?php echo number_format($detalle->tarifa_publica,2); ?> <small><?php echo $detalle->denominacion; ?></small></h2>
       <p class="help-block">Tarifa Publica</p>
-      <?php if ($detalle->nota !== NULL): ?>
+      <?php if ($detalle->nota !== ""): ?>
         <h3><strong><?php echo $detalle->nota; ?></strong></h3>
         <p class="help-block">Nota</p>
       <?php endif; ?>
@@ -118,8 +118,12 @@
             <input type="text" class="form-control" id="fecha-reservacion" name="fecha-reservacion" placeholder="" required>
           </div>
           <div class="form-group">
+
+            <div id="testdiv"></div>
+          </div>
+          <div class="form-group">
             <p>
-              <button type="submit" name="button" class="btn btn-theme btn-lg">Agregar a Carrito</button>
+              <button id="btn-submit" type="submit" name="button" class="btn btn-theme btn-lg">Agregar a Carrito</button>
             </p>
           </div>
 
@@ -137,7 +141,54 @@
 <script>
 agencia.viajes.validar_formulario();
 $(document).ready(function() {
-  $.datepicker.setDefaults($.datepicker.regional['es']);
-  $( "#fecha-reservacion" ).datepicker();
+  $( "#fecha-reservacion" ).datepicker({
+    dateFormat:'yy-mm-dd',
+    onSelect: function() {
+        $( "#btn-submit" ).prop( "disabled", false );
+        var date = $(this).val();
+        //Metodo para validar que pueda ser seleccionado ese dia de la semana para reservar
+        $.post("<?php echo base_url(); ?>index.php/tour/validarDiaSalida", {
+          id: <?php echo $detalle->id ?>,
+          date: date  // now you will get the selected date to `date` in your post
+        },
+        function(data){
+            var result = JSON.parse(data);
+            if (result.respuesta === 1) {
+
+                $.post("<?php echo base_url(); ?>index.php/tour/obtenerVigenciaTourJson", {
+                  id: <?php echo $detalle->id ?> // now you will get the selected date to `date` in your post
+                },
+                function(data){
+                     var detalle = JSON.parse(data);
+                     if (date < detalle.vigencia) {
+                       $.post("<?php echo base_url(); ?>index.php/tour/obtenerDisponibilidad", {
+                         id: <?php echo $detalle->id ?>,
+                        date: date // now you will get the selected date to `date` in your post
+                       },
+                       function(data){
+                            var result = JSON.parse(data);
+                            $('#testdiv').html('');
+                            $('#testdiv').html('<label for="disponibilidad">Disponibilidad</label><br><strong>' + result.lugares_disponibles+'</strong>');
+                       });
+                     }else {
+                       $( "#btn-submit" ).prop( "disabled", true );
+                       alert("No hay disponibilidad para esta fecha");
+                       $('#testdiv').html('<label for="disponibilidad">Disponibilidad</label><br><stron>0</strong>');
+
+                     }
+                });
+
+              }
+              else {
+                $( "#btn-submit" ).prop( "disabled", true );
+                alert("No hay disponibilidad para esta fecha");
+                $('#testdiv').html('<label for="disponibilidad">Disponibilidad</label><br><stron>0</strong>');
+
+              }
+
+          });
+
+      }
+  });
 });
 </script>

@@ -32,3 +32,8 @@ LEFT JOIN `cat_paquetes` c ON (b.`cod_paquete`=c.`id`)
 LEFT JOIN `cat_tours` d ON (b.`cod_paquete`=d.`id`)
 LEFT JOIN `cat_clientes` e ON (a.`cod_cliente` = e.`id`)
 )
+
+SELECT IFNULL(b.`max_reservaciones`- COUNT(*),0) AS lugares_disponibles
+FROM `vw_orden_detalle` a
+LEFT JOIN `cat_paquetes` b ON (a.`cod_paquete`=b.`id`)
+WHERE `fecha_reservacion` = 'b.`fecha_salida`' AND b.`id` = 1

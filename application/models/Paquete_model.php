@@ -6,6 +6,15 @@ class Paquete_model extends CI_Model {
     $this->db = $this->load->database('default', TRUE);
     }
 
+    function obtenerLugaresDisponibles($id){
+      $query = $this->db->query("SELECT IFNULL(b.max_reservaciones - COUNT(*),0) AS lugares_disponibles
+      FROM vw_orden_detalle a
+      LEFT JOIN cat_paquetes b ON (a.cod_paquete=b.id)
+      WHERE fecha_reservacion = b.fecha_salida AND b.id = ".$id."");
+      return $query->row();
+
+    }
+
     function eliminarImagenPaquete($id) {
       //die(print_r($serv));
         $this->db->trans_begin();

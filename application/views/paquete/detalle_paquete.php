@@ -190,7 +190,12 @@
                 <input type="text" class="form-control" id="duracion" name="duracion" placeholder="" value="<?php echo $detalle->duracion ?>" required>
                 <p class="help-block">Ejemplo: 4 dias, 3 noches.</p>
               </div>
-
+              <div class="form-group">
+                <label for="vigencia">Vigencia</label>
+                <input type="text" class="form-control" id="vigencia" name="vigencia" placeholder="" value="<?php echo $detalle->vigencia ?>" required>
+                <p class="help-block">Ultima fecha para reservar o vigencia del paquete.</p>
+                <div id="start"></div>
+              </div>
 
             </div>
             <div class="col-sm-4">
@@ -223,6 +228,16 @@
                 <label for="lugar-regreso">Lugar Regreso</label>
                 <input type="text" class="form-control" id="lugar-regreso" name="lugar-regreso" placeholder="" value="<?php echo $detalle->lugar_regreso ?>" required>
                 <p class="help-block">Punto de reunión de regreso.</p>
+              </div>
+              <div class="form-group">
+                <label for="min-reservacion">Num Minimo Reservacion </label>
+                <input type="text" class="form-control" id="min-reservacion" name="min-reservacion" placeholder="" value="<?php echo $detalle->min_reservaciones ?>" required>
+                <p class="help-block">Número minimo de reservaciones por paquete.</p>
+              </div>
+              <div class="form-group">
+                <label for="max-reservacion">Num Maximo Reservacion </label>
+                <input type="text" class="form-control" id="max-reservacion" name="max-reservacion" placeholder="" value="<?php echo $detalle->max_reservaciones ?>" required>
+                <p class="help-block">Número maximo de reservaciones por paquete.</p>
               </div>
 
             </div>
@@ -281,11 +296,12 @@
                 <input type="file" id="upl" name="upl">
                 <p class="help-block">Caratula del Paquete.</p>
               </div>
+              <div class="form-group">
+                <button type="submit" name="button" class="btn btn-success">Guardar Cambios</button>
+                <?php echo anchor('paquete/lista/','Regresar a lista', array('class'=>'btn btn-primary')) ?>
+              </div>
             </div>
-            <div class="form-group">
-              <button type="submit" name="button" class="btn btn-warning">Guardar</button>
-              <?php echo anchor('paquete/lista/','Regresar a lista', array('class'=>'btn btn-primary')) ?>
-            </div>
+
               </form>
           </div>
 
@@ -333,5 +349,6 @@ $(".fancybox").fancybox({
   $(document).ready(function () {
   	$( "#fecha-salida" ).datepicker();
   	$( "#fecha-regreso" ).datepicker();
+    $("#vigencia").datepicker();
   });
 </script>

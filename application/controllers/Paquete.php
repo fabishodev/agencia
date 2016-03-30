@@ -171,6 +171,7 @@ class Paquete extends CI_Controller {
     $especificaciones = $this->input->post('especificaciones');
     $lugar = $this->input->post('lugar');
     $duracion = $this->input->post('duracion');
+    $vigencia = $this->input->post('vigencia');
     $fecha_salida = $this->input->post('fecha-salida');
     $fecha_regreso = $this->input->post('fecha-regreso');
     $hora_salida = $this->input->post('hora-salida');
@@ -186,6 +187,8 @@ class Paquete extends CI_Controller {
     $precio_adulto = $this->input->post('precio-adulto');
     $denominacion = $this->input->post('denominacion');
     $nota = $this->input->post('nota');
+    $max_reservacion = $this->input->post('max-reservacion');
+    $min_reservacion = $this->input->post('min-reservacion');
     $datos = array(
       'cod_categoria' => $cod_categoria,
       'cod_operadora' => $cod_operadora,
@@ -193,6 +196,7 @@ class Paquete extends CI_Controller {
       'especificaciones' => $especificaciones,
       'lugar' => $lugar,
       'duracion' => $duracion,
+      'vigencia' => date('Y-m-d',  strtotime($vigencia)),
       'fecha_salida' => date('Y-m-d',  strtotime($fecha_salida)),
       'hora_salida' => $hora_salida,
       'fecha_regreso' => date('Y-m-d',  strtotime($fecha_regreso)),
@@ -208,6 +212,8 @@ class Paquete extends CI_Controller {
       'precio_adulto_mayor' => $precio_adulto,
       'denominacion' => $denominacion,
       'nota' => $nota,
+      'max_reservaciones' => $max_reservacion,
+      'min_reservaciones' => $min_reservacion,
       'estatus' => $estatus,
       'cod_usuario' => 1,
       'fecha_actualizado' => date('Y-m-d H:i:s'),
@@ -225,6 +231,7 @@ class Paquete extends CI_Controller {
     $data['contentView'] = 'paquete/informacion_paquete_groovin';
     $data['detalle'] = $this->paquete_m->obtenerDetallePaquete($id);
     $data['imagenes'] = $this->paquete_m->obtenerGaleriaPaquete($id);
+    $data['lugares'] = $this->paquete_m->obtenerLugaresDisponibles($id);
     $data['scripts'] = array('agencia');
     $data['success'] = '';
     if ($this->session->userdata('success')) {
@@ -311,6 +318,7 @@ class Paquete extends CI_Controller {
     $especificaciones = $this->input->post('especificaciones');
     $lugar = $this->input->post('lugar');
     $duracion = $this->input->post('duracion');
+    $vigencia = $this->input->post('vigencia');
     $fecha_salida = $this->input->post('fecha-salida');
     $fecha_regreso = $this->input->post('fecha-regreso');
     $hora_salida = $this->input->post('hora-salida');
@@ -325,6 +333,8 @@ class Paquete extends CI_Controller {
     $precio_adulto = $this->input->post('precio-adulto');
     $denominacion = $this->input->post('denominacion');
     $nota = $this->input->post('nota');
+    $max_reservacion = $this->input->post('max-reservacion');
+    $min_reservacion = $this->input->post('min-reservacion');
     $datos = array(
       'cod_categoria' => $cod_categoria,
       'cod_operadora' => $cod_operadora,
@@ -332,6 +342,7 @@ class Paquete extends CI_Controller {
       'especificaciones' => $especificaciones,
       'lugar' => $lugar,
       'duracion' => $duracion,
+      'vigencia' => date('Y-m-d',  strtotime($vigencia)),
       'fecha_salida' => date('Y-m-d',  strtotime($fecha_salida)),
       'hora_salida' => $hora_salida,
       'fecha_regreso' => date('Y-m-d',  strtotime($fecha_regreso)),
@@ -347,6 +358,8 @@ class Paquete extends CI_Controller {
       'precio_adulto_mayor' => $precio_adulto,
       'denominacion' => $denominacion,
       'nota' => $nota,
+      'max_reservaciones' => $max_reservacion,
+      'min_reservaciones' => $min_reservacion,
       'estatus' => 1,
       'cod_usuario' => 1,
       'fecha_creado' => date('Y-m-d H:i:s'),

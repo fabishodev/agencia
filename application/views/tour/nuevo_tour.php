@@ -141,7 +141,11 @@
                 <input type="text" class="form-control" id="duracion" name="duracion" placeholder="" required>
                 <p class="help-block">Ejemplo: 1 día, 4 dias y 3 noches, etc.</p>
               </div>
-
+              <div class="form-group">
+                <label for="vigencia">Vigencia</label>
+                <input type="text" class="form-control" id="vigencia" name="vigencia" placeholder="" required>
+                <p class="help-block">Vigencia del tour.</p>
+              </div>
 
             </div>
             <div class="col-sm-4">
@@ -149,6 +153,31 @@
                 <label for="dia-salida">Dia(s) de Salida(s)</label>
                 <input type="text" class="form-control" id="dia-salida" name="dia-salida" placeholder="" required>
                 <p class="help-block">Ejemplo: Viernes, Sabados, Domingos</p>
+              </div>
+              <div class="form-group">
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="dias[]" value="Domingo"> Domingos
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="dias[]" value="Lunes"> Lunes
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="dias[]" value="Martes"> Martes
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="dias[]" value="Miércoles"> Miércoles
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="dias[]" value="Jueves"> Jueves
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="dias[]" value="Viernes"> Viernes
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="dias[]" value="Sábado"> Sábados
+                </label>
               </div>
               <div class="form-group">
                 <label for="horarios-salida">Horarios Salidas</label>
@@ -175,11 +204,7 @@
                 <textarea name="politica-compra" id="politica-compra" class="form-control" rows="3" cols="40"></textarea>
                 <p class="help-block">Política de compra del tour</p>
               </div>
-              <div class="form-group">
-                <label for="vigencia">Vigencia</label>
-                <input type="text" class="form-control" id="vigencia" name="vigencia" placeholder="" required>
-                <p class="help-block">Vigencia del tour.</p>
-              </div>
+
               <div class="form-group">
                 <label for="min-reservacion">Num Minimo Reservacion </label>
                 <input type="text" class="form-control" id="min-reservacion" name="min-reservacion" placeholder="" required>

@@ -40,6 +40,43 @@ class Tour extends CI_Controller {
     $this->load->view($data['layout'], $data);
   }
 
+  public function validarDiaSalida()
+  {
+    $id = $this->input->post('id');
+    $fecha = $this->input->post('date');
+    $day = date('w', strtotime($fecha));
+    //echo '<pre>'; die(print($day));
+    $dias = $this->tour_m->obtenerDiasSalidas($id);
+    $array= array();
+    $respuesta = array();
+    foreach ($dias as $d) {
+      array_push($array, $d->num_dia );
+    }
+    if (in_array($day, $array)) {
+      $respuesta = array('respuesta' => 1);
+    }else {
+      $respuesta = array('respuesta' => 0);
+    }
+
+
+    echo json_encode($respuesta);
+  }
+
+  public function obtenerVigenciaTourJson()
+  {
+      $id = $this->input->post('id');
+      $vigencia = $this->tour_m->obtenerVigenciaTour($id);
+      echo json_encode($vigencia);
+  }
+
+  public function obtenerDisponibilidad(){
+    $id = $this->input->post('id');
+    $fecha = date('Y-m-d', strtotime($this->input->post('date')));
+    $data = $this->tour_m->obtenerLugaresDisponibles($id, $fecha);
+    //var_dump($data);
+    echo json_encode($data);
+  }
+
   public function tours()
   {
     $data = array();
@@ -217,6 +254,7 @@ class Tour extends CI_Controller {
     $estatus = $this->input->post('estatus');
     $min_reservaciones = $this->input->post('min-reservacion');
     $max_reservaciones = $this->input->post('max-reservacion');
+    $dias = $this->input->post('dias');
     $datos = array(
       'cod_operadora' => $cod_operadora,
       'nombre_tour' => $nombre,
@@ -254,6 +292,44 @@ class Tour extends CI_Controller {
     );
 
     if ($this->tour_m->actualizarTour($datos,$id)) {
+      if ($this->tour_m->eliminarDiasSalidas($id)) {
+        foreach ($dias as $dia) {
+          switch ($dia) {
+            case 'Domingo':
+              $num_dia = 0;
+              break;
+            case 'Lunes':
+              $num_dia = 1;
+              break;
+            case 'Martes':
+              $num_dia = 2;
+              break;
+            case 'Miércoles':
+              $num_dia = 3;
+              break;
+            case 'Jueves':
+              $num_dia = 4;
+              break;
+            case 'Viernes':
+              $num_dia = 5;
+              break;
+            case 'Sábado':
+              $num_dia = 6;
+              break;
+            default:
+              $num_dia = NULL;
+              break;
+          }
+          $dia_salida = array(
+            'cod_tour' => $id,
+            'dia_semana' => $dia,
+            'num_dia' => $num_dia,
+            'cod_usuario' => 1,
+            'fecha_creado' => date('Y-m-d H:i:s'),
+          );
+          $this->tour_m->guardarDiaSalida($dia_salida);
+        }
+      }
       $this->session->set_userdata('success', 'Tour actualizado correctamente.');
       redirect('tour/detalle/'.$id);
     }
@@ -273,6 +349,7 @@ class Tour extends CI_Controller {
     $data['operadoras'] = $this->operadora_m->obtenerListaOperadoras();
     $data['detalle'] = $this->tour_m->obtenerDetalleTour($id);
     $data['imagenes'] = $this->tour_m->obtenerGaleriaTour($id);
+    $data['dias'] = $this->tour_m->obtenerDiasSalidas($id);
     $data['scripts'] = array('agencia');
     $data['success'] = '';
     if ($this->session->userdata('success')) {
@@ -284,7 +361,7 @@ class Tour extends CI_Controller {
       $danger = $this->session->userdata('danger');
       $data['danger'] = $danger;
     }
-    //var_dump($data['detalle']);
+    //var_dump($data['dias']);
     $this->_renderView($data);
   }
 
@@ -352,6 +429,7 @@ class Tour extends CI_Controller {
     $nota = $this->input->post('nota');
     $min_reservaciones = $this->input->post('min-reservacion');
     $max_reservaciones = $this->input->post('max-reservacion');
+    $dias = $this->input->post('dias');
     $datos = array(
       'cod_categoria' => 4,
       'cod_operadora' => $cod_operadora,
@@ -388,7 +466,44 @@ class Tour extends CI_Controller {
       'cod_usuario' => 1,
       'fecha_creado' => date('Y-m-d H:i:s'),
     );
-    if ($this->tour_m->guardarTour($datos)) {
+    $cod_tor = $this->tour_m->guardarTour($datos);
+    if ($cod_tour) {
+      foreach ($dias as $dia) {
+        switch ($dia) {
+          case 'Domingo':
+            $num_dia = 0;
+            break;
+          case 'Lunes':
+            $num_dia = 1;
+            break;
+          case 'Martes':
+            $num_dia = 2;
+            break;
+          case 'Miércoles':
+            $num_dia = 3;
+            break;
+          case 'Jueves':
+            $num_dia = 4;
+            break;
+          case 'Viernes':
+            $num_dia = 5;
+            break;
+          case 'Sábado':
+            $num_dia = 6;
+            break;
+          default:
+            $num_dia = NULL;
+            break;
+        }
+        $dia_salida = array(
+          'cod_tour' => $cod_tour,
+          'dia_semana' => $dia,
+          'num_dia' => $num_dia,
+          'cod_usuario' => 1,
+          'fecha_creado' => date('Y-m-d H:i:s'),
+        );
+        $this->tour_m->guardarDiaSalida($dia_salida);
+      }
       $this->session->set_userdata('success', 'Tour guardado correctamente.');
       redirect('tour/lista');
     }

@@ -197,7 +197,11 @@
                 <input type="text" class="form-control" id="duracion" name="duracion" placeholder="" value="<?php echo $detalle->duracion ?>" required>
                 <p class="help-block">Ejemplo: 1 día, 4 dias y 3 noches, etc.</p>
               </div>
-
+              <div class="form-group">
+                <label for="vigencia">Vigencia</label>
+                <input type="text" class="form-control" id="vigencia" name="vigencia" placeholder="" value="<?php echo $detalle->vigencia ?>" required>
+                <p class="help-block">Vigencia del tour.</p>
+              </div>
 
             </div>
             <div class="col-sm-4">
@@ -206,6 +210,21 @@
                 <input type="text" class="form-control" id="dia-salida" name="dia-salida" placeholder="" value="<?php echo $detalle->dias_salidas ?>" required>
                 <p class="help-block">Ejemplo: Viernes, Sabados, Domingos</p>
               </div>
+              <div class="form-group">
+
+              <?php $semana = array('Domingo','Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ); ?>
+              <?php $existe = array(); ?>
+              <?php foreach ($dias as $dia): ?>
+                <?php $existe[] = $dia->dia_semana;?>
+              <?php endforeach; ?>
+              <?php foreach($semana as $day_name): ?>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="dias[]" value="<?php echo $day_name ?>" <?php echo(in_array($day_name, $existe)) ? 'checked' : ''?> ><?php echo $day_name; ?>
+                </label>
+              <?php endforeach; ?>
+
+
+            </div>
               <div class="form-group">
                 <label for="horarios-salida">Horarios Salidas</label>
                 <input type="text" class="form-control" id="horarios-salida" name="horarios-salida" value="<?php echo $detalle->horarios_salidas ?>" placeholder="" >
@@ -230,11 +249,6 @@
                 <label for="politica-cancelacion">Política de Cancelacion</label>
                 <textarea name="politica-compra" id="politica-compra" class="form-control" rows="3" cols="40"><?php echo $detalle->politica_cancelacion ?></textarea>
                 <p class="help-block">Política de compra del tour</p>
-              </div>
-              <div class="form-group">
-                <label for="vigencia">Vigencia</label>
-                <input type="text" class="form-control" id="vigencia" name="vigencia" placeholder="" value="<?php echo $detalle->vigencia ?>" required>
-                <p class="help-block">Vigencia del tour.</p>
               </div>
               <div class="form-group">
                 <label for="min-reservacion">Num Minimo Reservacion </label>
@@ -298,7 +312,7 @@
                 <p class="help-block">Caratula del Tour.</p>
               </div>
               <div class="form-group">
-                <button type="submit" name="button" class="btn btn-success">Editar</button>
+                <button type="submit" name="button" class="btn btn-success">Guardar Cambios</button>
                 <?php echo anchor('tour/lista/','Regresar a lista', array('class'=>'btn btn-primary')) ?>
               </div>
             </div>
